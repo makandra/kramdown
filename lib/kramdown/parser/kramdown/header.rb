@@ -52,7 +52,8 @@ module Kramdown
           return false
         end
         result = @src.scan(ATX_HEADER_MATCH)
-        level, text, id = @src[1], @src[2].strip, @src[3]
+        level, text, id = @src[1], @src[2].to_s.strip, @src[3]
+        return false if text.empty?
         el = new_block_el(:header, nil, :level => level.length, :raw_text => text)
         add_text(text, el)
         el.options[:attr] = {'id' => id} if id
